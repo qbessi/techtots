@@ -4,10 +4,11 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
-import vercel from "@astrojs/vercel/edge";
+import vercel from "@astrojs/vercel"; // ✅ CORRECT
+
 
 export default defineConfig({
-  output: "static",
+  output: "server",
   site: "https://techtots-five.vercel.app/", // for sitemap
   integrations: [mdx(), sitemap(), tailwind(), icon()],
   adapter: vercel(),
