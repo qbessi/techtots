@@ -1,4 +1,6 @@
 // src/pages/api/checkout.ts
+import type { APIRoute } from "astro"; // ❗️ Required for `APIRoute` type
+
 import Stripe from 'stripe';
 
 
