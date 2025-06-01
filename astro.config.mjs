@@ -8,7 +8,7 @@ import vercel from "@astrojs/vercel/edge";
 
 export default defineConfig({
   output: "static",
-  site: "https://techtots-five.vercel.app", // for sitemap
+  site: "https://techtots-five.vercel.app/", // for sitemap
   integrations: [mdx(), sitemap(), tailwind(), icon()],
   adapter: vercel(),
 });
