@@ -10,14 +10,14 @@ import "../styles/hamburgers.css";
     <a class="flex items-center gap-2" href="/">
       <p class="font-kablamo text-ppink text-4xl md:text-5xl">></p>
       <p class="pt-2 md:text-4xl font-semibold flex">
-        <span class="hidden md:block">Tech</span> Tots
+        TechTots
       </p>
     </a>
     <!-- <ul class="items-center md:gap-8 text-nowrap hidden md:flex">
       <li><Link href="/" text="Home" style="primary" /></li>
       <li><Link href="/courses" text="Courses" style="secondary" /></li>
       <li><Link href="/pricing" text="Pricing" style="tertiary" /></li>
-    </ul> -->
+    </ul>
     <div class="md:hidden z-40">
       <button class="hamburger hamburger--elastic" type="button">
         <span class="hamburger-box">
@@ -32,22 +32,6 @@ import "../styles/hamburgers.css";
             <li><Link href="/pricing" text="Pricing" style="tertiary" /></li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </nav>
 </header>
-<script is:inline>
-  function init(){
-    const hamburger = document.querySelector(".hamburger");
-    const menu = document.getElementById("navigation");
-
-    if (hamburger && menu) {
-      hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("is-active");
-        menu.classList.toggle("-translate-y-full");
-        menu.classList.toggle("translate-y-0");
-      });
-    }
-  }
-  init();
-  document.addEventListener("astro:after-swap", init);
-</script>
