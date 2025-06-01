@@ -14,16 +14,79 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
       We help kids aged 4-13 learn coding through play, creativity, and games—using tools like Scratch, stories, and imagination. 3-hour classes EVERYDAY via Zoom!
     </p>
     <p class="text-red-600">3 seat(s) remaining.</p>
-    <a
-      rel="noopener noreferrer"
-      href="#"
-      target="_blank"
-      class="bg-pgreen px-5 py-3 border-1 border-black rounded-lg shadow-card hover:shadow-hover transition"
-    >
-     Book Now!
-    </a>
-    <small>£30 per Day (Pay as You Go). 9am - 12pm. Cancel Anytime.</small>
-  </div>
+<a
+  href="#"
+  onclick="startCheckout(event)"
+  class="bg-pgreen px-5 py-3 border-1 border-black rounded-lg shadow-card hover:shadow-hover transition"
+>
+  Book Now!
+</a>
+    <small id="price-text">Loading price...</small>
+    <script>
+  async function updateCurrency() {
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+      const country = data.country || 'GB';
+
+      let currency = 'GBP';
+      let locale = 'en-GB';
+
+      if (country === 'US') {
+        currency = 'USD';
+        locale = 'en-US';
+      } else if (country === 'KW') {
+        currency = 'KWD';
+        locale = 'ar-KW';
+      }
+
+      const formatted = new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 0
+      }).format(30);
+
+      document.getElementById('price-text').textContent = `${formatted} per Day (Pay as You Go). 9am - 12pm. Cancel Anytime.`;
+    } catch (e) {
+      // fallback
+      document.getElementById('price-text').textContent = '£30 per Day (Pay as You Go). 9am - 12pm. Cancel Anytime.';
+    }
+  }
+
+  updateCurrency();
+</script><script>
+  async function startCheckout(event) {
+    event.preventDefault();
+    
+    let currency = "GBP"; // Default
+
+    try {
+      const res = await fetch("https://ipapi.co/json/");
+      const data = await res.json();
+      const country = data.country;
+
+      if (country === "US") currency = "USD";
+      else if (country === "KW") currency = "KWD";
+    } catch (err) {
+      console.warn("Geo lookup failed, using default currency.");
+    }
+
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ currency })
+    });
+
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Checkout error.");
+    }
+  }
+</script>
+
+ </div>
   <div
     class="md:w-1/2 object-contain flex items-center justify-center p-10 group"
   >
