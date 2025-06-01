@@ -50,8 +50,8 @@ export async function post({ request }) {
           quantity: 1,
         },
       ],
-      success_url: 'https://your-site.vercel.app/success',
-      cancel_url: 'https://your-site.vercel.app/cancel',
+      success_url: 'https://techtots-five.vercel.app/success',
+      cancel_url: 'https://techtots-five.vercel.app/cancel',
     });
 
     return new Response(JSON.stringify({ url: session.url }), {
