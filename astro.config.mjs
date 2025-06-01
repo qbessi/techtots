@@ -8,7 +8,7 @@ import vercel from "@astrojs/vercel"; // ✅ CORRECT
 
 
 export default defineConfig({
-  output: "server",
+  output: "static",
   site: "https://techtots-five.vercel.app/", // for sitemap
   integrations: [mdx(), sitemap(), tailwind(), icon()],
   adapter: vercel(),
