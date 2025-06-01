@@ -11,7 +11,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
     <h1 class="text-pblack">Welcome</h1>
     <p class="text-6xl font-bold">Big ideas start with tiny coders.</p>
     <p>
-      We help kids aged 4-13 learn coding through play, creativity, and games—using tools like Scratch, stories, and imagination. 3-hour classes EVERYDAY via Zoom!
+      We help kids aged 4-13 learn coding through play, creativity, and games—using tools like Scratch, Python, stories, and imagination. 3-hour classes EVERYDAY via Zoom!
     </p>
     <p class="text-red-600">3 seat(s) remaining.</p>
 <a
@@ -20,10 +20,10 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   rel="noopener noreferrer"
   class="bg-pgreen px-5 py-3 border-1 border-black rounded-lg shadow-card hover:shadow-hover transition"
 >
-  Book Now!
+  Book Now!     <span id="price-text">Loading price...</span> per Day
 </a>
 
-    <small id="price-text">Loading price...</small>
+    <small>** (Pay as You Go) - 9am - 12pm. Cancel Anytime.</small> 
     <script>
   async function updateCurrencyPrice() {
     let currency = "GBP";
@@ -54,7 +54,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
       minimumFractionDigits: 0
     }).format(amount);
 
-    document.getElementById("price-text").textContent = `${formatted} per Day (Pay as You Go). 9am - 12pm. Cancel Anytime.`;
+    document.getElementById("price-text").textContent = `${formatted}`;
   }
 
   updateCurrencyPrice();
