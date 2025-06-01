@@ -15,12 +15,14 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
     </p>
     <p class="text-red-600">3 seat(s) remaining.</p>
 <a
-  href="#"
-  onclick="startCheckout(event)"
+  href="https://book.stripe.com/test_7sY28q8nz0LG7QN7ul8k800"  <!-- use your real link -->
+  target="_blank"
+  rel="noopener noreferrer"
   class="bg-pgreen px-5 py-3 border-1 border-black rounded-lg shadow-card hover:shadow-hover transition"
 >
   Book Now!
 </a>
+
     <small id="price-text">Loading price...</small>
     <script>
 export async function post({ request }) {
