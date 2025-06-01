@@ -15,7 +15,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
     </p>
     <p class="text-red-600">3 seat(s) remaining.</p>
 <a
-  href="https://book.stripe.com/test_7sY28q8nz0LG7QN7ul8k800"  <!-- use your real link -->
+  href="https://book.stripe.com/test_7sY28q8nz0LG7QN7ul8k800" 
   target="_blank"
   rel="noopener noreferrer"
   class="bg-pgreen px-5 py-3 border-1 border-black rounded-lg shadow-card hover:shadow-hover transition"
@@ -25,48 +25,39 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 
     <small id="price-text">Loading price...</small>
     <script>
-export async function post({ request }) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2023-10-16',
-  });
+  async function updateCurrencyPrice() {
+    let currency = "GBP";
+    let locale = "en-GB";
+    let amount = 30;
 
-  const { currency } = await request.json();
+    try {
+      const res = await fetch("https://ipapi.co/json/");
+      const data = await res.json();
+      const country = data.country;
 
-  const amounts = {
-    GBP: 3000,
-    USD: 3500,
-    KWD: 1000,
-  };
+      if (country === "US") {
+        currency = "USD";
+        locale = "en-US";
+        amount = 35;
+      } else if (country === "KW") {
+        currency = "KWD";
+        locale = "ar-KW";
+        amount = 10;
+      }
+    } catch (e) {
+      console.warn("Geolocation failed. Defaulting to GBP.");
+    }
 
-  try {
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency,
-            product_data: { name: 'TechTots Class - 3hr' },
-            unit_amount: amounts[currency] || 3000,
-          },
-          quantity: 1,
-        },
-      ],
-      success_url: 'https://techtots-five.vercel.app/success',
-      cancel_url: 'https://techtots-five.vercel.app/cancel',
-    });
+    const formatted = new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: currency,
+      minimumFractionDigits: 0
+    }).format(amount);
 
-    return new Response(JSON.stringify({ url: session.url }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (err) {
-    return new Response(JSON.stringify({ error: 'Stripe error' }), {
-      status: 500,
-    });
+    document.getElementById("price-text").textContent = `${formatted} per Day (Pay as You Go). 9am - 12pm. Cancel Anytime.`;
   }
-}
 
+  updateCurrencyPrice();
 </script>
 
  </div>
