@@ -1,22 +1,3 @@
----
-import { getCollection } from "astro:content";
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
-import FormattedDate from "@/components/FormattedDate.astro";
-import { Icon } from "astro-icon/components";
-
-const bgClasses = [
-  "bg-pgreen rounded-full",
-  "bg-pblue rounded-2xl",
-  "bg-ppink ",
-  "bg-pyellow rounded-md",
-];
-
-const getRandomClass = () => {
-  return bgClasses[Math.floor(Math.random() * bgClasses.length)];
-};
----
 
 <section class="flex flex-col text-center gap-4 " >
   <p class="text-pblack">Play is powerful.</p>
